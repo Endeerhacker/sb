@@ -1,0 +1,293 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SBot | إس بوت</title>
+	<meta name="description" content="Special discord bot.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="/sbot.gif">
+
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="/jquery.counterup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="test.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="/sbot.gif" width="30" height="30" class="d-inline-block align-top" alt="SBot">
+          SBot
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/#">Main</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/#stats">Statistics</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/#devs">Developers</a>
+                  </li>
+				  <li class="nav-item active">
+                    <a class="nav-link" href="#">Commands<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/auth" tabindex="-1" aria-disabled="false">Dashboard</a>
+                  </li>
+                </ul>
+
+				                <a href=" https://discordapp.com/api/oauth2/authorize?client_id=553212598368337921&permissions=8&scope=bot">
+                    <span class="badge badge-pill badge-primary">SBOT.</span>
+                </a>
+              </div>
+      </nav>
+   <div id="commands">
+        <div class="tabela">
+            <div class="footer">
+                <div class="copyright text-center text-dark">
+                  Commands of
+                  <strong>SBot</strong>
+                  not fully support English.
+                </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Public Commands</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Admin commands" class="pinkBg">$server</td>
+                        <td data-label="Description">معلومات سيرفرك</td>
+                        <td data-label="Usage"><a  data-lightbox="server">$server</a></td>
+                    </tr>
+                    <tr>
+                      </tr>
+
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$user</td>
+                        <td data-label="Description">معلومات حسابك</td>
+                        <td data-label="Usage"><a data-lightbox="user">$user</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$points</td>
+                        <td data-label="Description">النقاط | مخصص للفعاليات</td>
+                        <td data-label="Usage"><a data-lightbox="points">$points [@member] [+1 / -1 / 1 / 0]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$top inv</td>
+                        <td data-label="Description">سرد الـ10 الأوائل على الدعوات</td>
+                        <td data-label="Usage"><a data-lightbox="top inv">$top inv</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$color</td>
+                        <td data-label="Description">إختيار لونك</td>
+                        <td data-label="Usage"><a data-lightbox="color">$color [number]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$colors</td>
+                        <td data-label="Description">سرد قائمة الألوان</td>
+                        <td data-label="Usage"><a data-lightbox="colors">$colors</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$colorbox</td>
+                        <td data-label="Description">صنع علبة ألوان بالدرجه المفضلة</td>
+                        <td data-label="Usage"><a  data-lightbox="colorbox">$colorbox [1/2/3/4] / $deletecolors</a></td>
+                    </tr>
+                    <tr>
+                   
+                        <td data-label="Command" class="pinkBg">$file</td>
+                        <td data-label="Description">صنع ملف مخصص</td>
+                        <td data-label="Usage"><a data-lightbox="file">$file [text]</a></td>
+                    </tr>
+                    <tr>
+                   
+                        <td data-label="Command" class="pinkBg">$top</td>
+                        <td data-label="Description">الخمس أشخاص الاعلى تفاعل بالسيرفر</td>
+                        <td data-label="Usage"><a data-lightbox="file">$top</a></td>
+                    </tr>
+                    <tr>
+                   
+                        <td data-label="Command" class="pinkBg">$reset voice</td>
+                        <td data-label="Description">تصفير نقاط التفاعل الصوتية</td>
+                        <td data-label="Usage"><a data-lightbox="file">$reset voice</a></td>
+                    </tr>
+                    <tr>
+                   
+                        <td data-label="Command" class="pinkBg">$reset text</td>
+                        <td data-label="Description">تصفير نقاط التفاعل الكتابية</td>
+                        <td data-label="Usage"><a data-lightbox="file">$reset text</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Admin commands</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Usage</th>
+                    </tr>
+                    <tr>
+                    
+                        <td data-label="Admin commands" class="pinkBg">$mute</td>
+                        <td data-label="Description">أسكات شخص من الشات</td>
+                        <td data-label="Usage"><a  data-lightbox="mute">$mute [@member] [time] [reason]</a></td>
+                    </tr>
+                    <tr>
+                     
+                         </tr>
+                    <tr>
+                        <td data-label="Admin commands" class="pinkBg">$unmute</td>
+                        <td data-label="Description">فك إسكات الشخص</td>
+                        <td data-label="Usage"><a  data-lightbox="unmute">$unmute [@member]</a></td>
+                    </tr>
+                    <tr>
+                      
+                        <td data-label="Admin commands" class="pinkBg">$ban</td>
+                        <td data-label="Description">حظر شخص</td>
+                        <td data-label="Usage"><a  data-lightbox="ban">$ban [@member] [time] [reason]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="staff commands" class="pinkBg">$warn</td>
+                        <td data-label="Description">تحذير شخص</td>
+                        <td data-label="Usage"><a data-lightbox="warn">$warn [@member] [reason]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$warnings</td>
+                        <td data-label="Description">رؤية عدد تحذيرات الشخص</td>
+                        <td data-label="Usage"><a  data-lightbox="warnings">$warnings [@member]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$clearwarnings</td>
+                        <td data-label="Description">مسح جميع تحذيرات الشخص</td>
+                        <td data-label="Usage"><a data-lightbox="clearwarnings">$clearwarnings [@member]</a></td>
+                    </tr>
+					 <tr>
+                        <td data-label="Command" class="pinkBg">$removewarn</td>
+                        <td data-label="Description">مسح أحد تحذيرات الشخص</td>
+                        <td data-label="Usage"><a  data-lightbox="removewarn">$removewarn [@member] [Warn ID]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$antiads</td>
+                        <td data-label="Description">مانع نشر روابط السيرفرات في الشات</td>
+                        <td data-label="Usage"><a data-lightbox="antiads">$antiads [enable/disable]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$unban</td>
+                        <td data-label="Description">فك الحظر عن شخص او عن الجميع</td>
+                        <td data-label="Usage"><a data-lightbox="unban">$unban [@member]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$kick</td>
+                        <td data-label="Description">طرد شخص</td>
+                        <td data-label="Usage"><a data-lightbox="kick">$kick [@member] [reason]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$clear</td>
+                        <td data-label="Description">مسح الشات</td>
+                        <td data-label="Usage"><a data-lightbox="clear">$clear [number]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$vban</td>
+                        <td data-label="Description">حظر شخص من الرومات الصوتية</td>
+                        <td data-label="Usage"><a data-lightbox="vban">$vban [@member]</a></td>
+                    </tr>
+					<tr>
+                        <td data-label="Command" class="pinkBg">$vuban</td>
+                        <td data-label="Description">فك حظر شخص من الرومات الصوتية</td>
+                        <td data-label="Usage"><a data-lightbox="vuban">$vuban [@member]</a></td>
+                    </tr>
+					<tr>
+                        <td data-label="Command" class="pinkBg">$server</td>
+                        <td data-label="Description">معلومات السيرفر</td>
+                        <td data-label="Usage"><a data-lightbox="server">$server</a></td>
+                    </tr>
+					<tr>
+                        <td data-label="Command" class="pinkBg">$nick</td>
+                        <td data-label="Description">تغيير النيك نيم لشخص</td>
+                        <td data-label="Usage"><a data-lightbox="nick">$nick [@member] [New Nickname]</a></td>
+                    </tr>
+					<tr>
+                        <td data-label="Command" class="pinkBg">$setcolor</td>
+                        <td data-label="Description">تحديد لون الرتبة عن طريق الهيكس كلرز</td>
+                        <td data-label="Usage"><a data-lightbox="setcolor">$setcolor [@role] [New color]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Games commands</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Usage</th>
+                  </tr>
+                 <tr>
+                        <td data-label="Command" class="pinkBg">$xo</td>
+                        <td data-label="Description">لعب أكس أو</td>
+                        <td data-label="Usage"><a data-lightbox="xo">$xo [@Player1] [@Player2]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$slots</td>
+                        <td data-label="Description">لعبة الفواكه المتشابهه</td>
+                        <td data-label="Usage"><a data-lightbox="slots">$slots</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$8ball</td>
+                        <td data-label="Description">لعبة الأسئلة العشوائية</td>
+                        <td data-label="Usage"><a data-lightbox="8ball">$8ball [Question]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$youtube</td>
+                        <td data-label="Description">معلومات قناة في يوتيوب</td>
+                        <td data-label="Usage"><a data-lightbox="youtube">$youtube [Channel link]</a></td>
+                    </tr>
+                 <tr>
+                        <td data-label="Command" class="pinkBg">$steam</td>
+                        <td data-label="Description">معلومات لعبة في ستيم</td>
+                        <td data-label="Usage"><a data-lightbox="steam">$steam [Game name]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$insta</td>
+                        <td data-label="Description">معلومات حساب في انستاجرام</td>
+                        <td data-label="Usage"><a data-lightbox="insta">$insta [Account username]</a></td>
+                    </tr>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$github</td>
+                        <td data-label="Description">معلومات حساب في قيت هاب</td>
+                        <td data-label="Usage"><a data-lightbox="insta">$github [Account username]</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Giveaway commands</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Usage</th>
+                    </tr>
+                    <td data-label="Command" class="pinkBg">$gstart</td>
+                    <td data-label="Description">بدأ قيف أواي</td>
+                    <td data-label="Usage"><a data-lightbox="gstart">$gstart [time] [winners] [Giveaway title]</a></td>
+                    <tr>
+                        <td data-label="Command" class="pinkBg">$greroll</td>
+                        <td data-label="Description">أختيار فائز آخر</td>
+                        <td data-label="Usage"><a data-lightbox="greroll">$greroll [Message ID]ً</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+        </div>
+    </div>
+	      <div class="footer">
+        <div class="copyright text-center text-dark">
+          © Copyright
+          <strong>SBot</strong>
+          . All Rights Reserved.
+        </div>
+      </div>
+</body>
+</html>

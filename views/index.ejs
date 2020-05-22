@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SBot | إس بوت</title>
+	<meta name="description" content="Special discord bot.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/main.css">
+	<link rel="icon" href="/sbot.gif">
+    <script src="/main.js"></script>
+
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="/jquery.counterup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+  </head>
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="/sbot.gif" width="30" height="30" class="d-inline-block align-top" alt="SBot">
+          SBot
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/#">Main<span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/#stats">Statistics</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/#devs">Developers</a>
+                  </li>
+				  <li class="nav-item">
+                    <a class="nav-link" href="commands">Commands</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/auth" tabindex="-1" aria-disabled="false">Dashboard</a>
+                  </li>
+                </ul>
+
+				                <a href="https://discord.gg/NttUKT">
+                    <span class="badge badge-pill badge-primary">Support</span>
+                </a>
+              </div>
+      </nav>
+      <div class="main">
+        <div class="jumbotron jumbotron-fluid mb-0" id="animate-back">
+          <div class="container animated bounceInUp text-center text-white">
+            <img class="rounded-circle img-fluid d-block mx-auto" src="<%= client.user.displayAvatarURL.replace('size=2048', 'size=128') %>" alt="<%= client.user.username %>">
+            <h1 class="display-4 mb-2"><%= client.user.username %></h1>
+            <p>SBot, use now!</p>
+            <button id="invite" type="button" class="btn btn-primary">Invite</button>
+            <button id="dashboard" type="button" class="btn btn-outline-primary">Dashboard</button>
+          </div>
+        </div>
+        <div class="jumbotron jumbotron-fluid mb-0" id="stats">
+            <div class="container wow fadeIn">
+                <h1 class="display-4 text-center">Statistics</h1>
+                <hr class="my-4">
+                <div class="row counters">
+                    <div class="col-lg-4 col-6 text-center">
+                        <span data-toggle="counter-up" class="counter" id="servers"><%= client.guilds.size %></span>
+                        <p>Servers</p>
+                    </div>
+                    <div class="col-lg-4 col-6 text-center">
+                        <span data-toggle="counter-up" class="counter" id="users"><%= client.users.size * 2 %></span>
+                        <p>Users</p>
+                    </div>
+                    <div class="col-lg-4 col-6 text-center">
+                      <span data-toggle="counter-up" id="ping" class="counter"><%= Math.round(client.ping); %></span>
+                      <p>Ms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="jumbotron jumbotron-fluid bg-dark pb-4" id="devs">
+          <div class="container wow fadeInUp">
+              <h1 class="display-4 text-center text-white">Developers</h1>
+              <hr class="my-4 text-white">
+            <div class="row devs">
+              <% client.guilds.get('621100087988322387').roles.find(role => role.name.includes('1')).members.forEach(member => {
+                let avatar;
+                  if(!member.user.displayAvatarURL.endsWith('?size=128')) {
+                    avatar = member.user.displayAvatarURL+='?size=128';
+                  }
+                %>
+              <div class="col-lg-3 col-sm-6 text-center mb-4">
+                <img class="rounded-circle img-fluid d-block mx-auto" width="128" height="128" src="<%=avatar.replace(/\?size=.*$/g, '?size=128')%>">
+                <h3 class="devname text-white"><%= member.user.username %></h3>
+              </div>
+              <%})%>
+              </div>
+              <h1 class="text-center display-4 text-white">Designer</h1>
+              <hr class="my-4">
+              <% var user = client.users.get('418715344614588428') %>
+              <div class="text-center">
+                <img class="rounded-circle img-fluid d-block mx-auto" width="128" height="128" src="<%=user.displayAvatarURL.endsWith('?size=128') ? user.displayAvatarURL : user.displayAvatarURL+='?size=128'.replace(/\?size=2048$/g, '?size=128')%>">
+                <h3 class="mt-1 mb-0 text-white"><%= user.username %></h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="copyright text-center text-dark">
+          © Copyright
+          <strong>SBot</strong>
+          . All Rights Reserved.
+        </div>
+      </div>
+      <script>
+        $('[data-toggle=counter-up]').counterUp({
+          delay: 10,
+          time: 1000
+        })
+        $("#invite").click(function () {
+          location.href = "https://discordapp.com/oauth2/authorize?client_id=553212598368337921&permissions=8&scope=bot"
+        })
+        $("#dashboard").click(function () {
+          location.href = "/dashboard"
+        })
+		$("#commands").click(function () {
+          location.href = "/commands"
+        })
+
+
+
+
+        window.oncontextmenu = function () {
+        return false;
+      }
+      $(document).keydown(function (event) {
+        if (event.keyCode == 123) {
+          return false;
+        }
+        else if ((event.ctrlKey && event.shiftKey && event.keyCode == 73) || (event.ctrlKey && event.shiftKey && event.keyCode == 74) || (event.ctrlKey && event.keyCode == 'U')) {
+          return false;
+        }
+      });
+      </script>
+</body>
+</html>

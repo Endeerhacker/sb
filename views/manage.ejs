@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SBot | إس بوت</title>
+  <meta name="description" content="Special discord bot.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="/main.css">
+  <link rel="icon" href="/sbot.gif">
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked+.slider {
+      background-color: #343A40;
+    }
+
+    input:focus+.slider {
+      box-shadow: 0 0 1px #343A40;
+    }
+
+    input:checked+.slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .bg-modal {
+      background-color: rgba(0, 0, 0, 0.8);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-contents {
+      height: 700px;
+      width: 1000px;
+      background-color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .close {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      font-size: 42px;
+      color: #333;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #666;
+    }
+	
+	.backButton {
+	  position: fixed;
+	  top: 90%
+	}
+	
+	.marginright {
+	  margin-right: 5px;
+	  padding-right: 5px;
+	  padding-top: 2px;
+	  margin-top: 2px;
+  }
+  </style>
+  <script src="/main.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/ripples.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.1.1/pdfobject.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+</head>
+
+<body class="manage">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/sbot.gif" width="30" height="30" class="d-inline-block align-top" alt="">
+      SBot.
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/#">Main<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#stats">Statistics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#devs">Developers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/commands">Commands</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="false">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="main">
+    <div class="control">
+      <div class="control-panel">
+        <div class="container" style="direction: rtl;">
+          <div class="row" style="flex-wrap: initial;">
+            <div class="col-md-4 panel-options" style="flex: 0 0 20.333333%;">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				<div class="text-center">
+				<h4><%=guild.name%></h4>
+				<br>
+                    <%
+                                  if(guild.iconURL) {
+                              %>
+                    <img class="guild-icon-manage mt-4" src="<%= guild.iconURL %>" alt="<%=guild.name%>">
+                    <%
+                                  } else {
+                              %>
+                    <span class="guild-icon-manage mt-4">
+                      <%=guild.nameAcronym%>
+                    </span>
+                    <%
+                                  }
+                              %>
+                  </div>
+				</div>
+			</div>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <ul class="nav flex-column nav-stacked nav-pills pl-initial" id="v-pills-tab" role="tablist">
+                    <li role="presentation">
+                      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="home" aria-selected="true"><i class="fa fa-home fa-fw" style="color: #343A40"></i><span style="color: #343A40">Main</span></a>
+                    </li>
+                    <li role="presentation">
+                      <a class="nav-link" id="v-pills-settings-tab" data-toggle="tab" href="#voice_settings" role="tab"
+                        aria-controls="settings" aria-selected="false"><i class="fa fa-headphones fa-fw" style="color: #343A40"></i><span style="color: #343A40">Voice</span></a>
+                    </li>
+                    <li role="presentation">
+                      <a class="nav-link" id="v-pills-replys-tab" data-toggle="tab" href="#replys" role="tab"
+                        aria-controls="replys" aria-selected="false"><i class="fa fa-pencil fa-fw" style="color: #343A40"></i><span style="color: #343A40">Replies</span></a>
+                    </li>
+                    <li role="presentation">
+                      <a class="nav-link" id="v-pills-welcome-tab" data-toggle="tab" href="#welcome" role="tab"
+                        aria-controls="welcome" aria-selected="false"><i class="fa fa-user fa-fw" style="color: #343A40"></i><span style="color: #343A40">Welcomer</span></a>
+                    </li>
+                    <li role="presentation">
+                      <a class="nav-link" id="v-pills-protection-tab" data-toggle="tab" href="#protection" role="tab"
+                        aria-controls="protection" aria-selected="false"><i class="fa fa-check fa-fw" style="color: #343A40"></i><span style="color: #343A40">Protection</span></a>
+                    </li>
+                    <li role="presentation">
+                      <a class="nav-link" id="v-pills-logs-tab" data-toggle="tab" href="#logs" role="tab"
+                        aria-controls="logs" aria-selected="false"><i class="fa fa-history fa-fw" style="color: #343A40"></i><span style="color: #343A40">Logs</span></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+			  <div class="panel panel-default backButton">
+				<div class="panel-body">
+					<a class="btn btn-primary full-width" href="/dashboard">Server list</a>
+				</div>
+			</div>
+            </div>
+			
+            <div class="col-md-8">
+              <div class="tab-content panel panel-body" id="v-pills-tabContent">
+                <div class="tab-pane fade" id="voice_settings" role="tabpanel" aria-labelledby="settings-tab">
+                  <div class="form-group" style="padding: 4%">
+                    <label for="exampleFormControlSelect1">Select channel:</label>
+                    <% if (data.voiceonlinesittings.length != 0) { %>
+                    <select name="روم الفويس اونلاين" class="form-control" id="pic">
+                      <%guild.channels.filter(c => c.type === "voice" || c.type === "category").forEach(c => {%>
+                      <% if (c.id == data.voiceonlinesittings.channelID) { %>
+                      <option value="<%= c.id %>" selected> 🔊 <%= c.name %></option>
+                      <% } else { %>
+                      <option value="<%= c.id %>"> 🔊 <%= c.name %></option>
+                      <% } %>
+                      <%})%>
+                    </select>
+                    <br />
+                    <input class="form-text form-control" type="text" name="textToChannelName" id="textToChannelName"
+                      placeholder="Ex: Voice Online 00" value="<%= data.voiceonlinesittings.channelTEXT %>" />
+                    <label style="color: red;">* Type 00 for open voice online</label>
+                    <% } else { %>
+                    <select name="روم الفويس اونلاين" class="form-control" id="pic">
+                      <option value="None" disabled selected>Select channel:</option>
+                      <%guild.channels.filter(c => c.type === "voice" || c.type === "category").forEach(c => {%>
+                      <option value="<%= c.id %>"> 🔊 <%= c.name %></option>
+                      <%})%>
+                    </select>
+                    <br />
+                    <input class="form-text form-control" type="text" name="textToChannelName" id="textToChannelName"
+                      placeholder="Ex: Voice Online 00" />
+                    <label style="color: red;">* Type 00 for open voice online</label>
+                    <% } %>
+                    <br />
+                    <br />
+                    <button class="btn btn-success" id="SaveVoiceSettings"><span class="	fa fa-check"></span> Save changes</button>
+                    <div id="TOASTsuccess" class="toast border border-success" data-autohide="false">
+                      <div class="toast-header">
+                        <strong class="mr-auto text-primary">Saved</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                      </div>
+                    </div>
+                    <div id="TOASTerror" class="toast border border-warning" data-autohide="false">
+                      <div class="toast-header">
+                        <strong class="mr-auto text-primary">Error in your informations</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="replys" role="tabpanel" aria-labelledby="replys-tab">
+                  <div class="form-group" style="padding: 4%">
+                    <label for="exampleFormControlSelect1">Auto replies</label>
+                    <br />
+                    <button value="<%= ' ' + ',' + ' ' + ',' + ' ' + ',' + 'add' %>"
+                      onclick="sEditReplyAlertBox(this.value)" type="button" class="btn btn-secondary"> &plus; Add new
+                      replies </button>
+                    <button onclick="delAllReply();" type="button" class="btn btn-danger">
+                      <i class="fa fa-trash-o"></i> delete all replies
+                    </button>
+                    <hr>
+                    <br />
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Message</th>
+                          <th scope="col">Replies</th>
+                          <th scope="col">Tools</th>
+                        </tr>
+                      </thead>
+                      <tbody id="arstb">
+                        <% data.allReplys.reverse().forEach((e, i) => {%>
+                        <tr>
+                          <th scope="row"><%= i+1 %></th>
+                          <td><%= e.msg %></td>
+                          <td><%= e.reply %></td>
+                          <td>
+                            <button class="btn btn-success"
+                              value="<%= e.msg + ',' + e.reply + ',' + e.botsabel + ',' + 'edit' %>"
+                              onclick="sEditReplyAlertBox(this.value)"><span class="fa fa-pencil"></span></button>
+                            <button value="<%= e.msg + ',' + e.reply + ',' + e.botsabel + ',' + 'edit' %>"
+                              onclick="delReply(this.value)" class="btn btn-danger"><span
+                                class="fa fa-trash-o"></span></button>
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="welcome" role="tabpanel" aria-labelledby="welcome-tab">
+                  <% if (data.welcomeSittings.length != 0) { %>
+                    <label for="exampleFormControlSelect1"><br><strong class="marginright">Active Welcomer</strong></label>
+                  <label class="switch">
+                    <%if (data.welcomeSittings.welcomeEnabel == 'true') {%>
+                    <input id="welcomeEnabel" type="checkbox" checked>
+                    <%} else {%>
+                    <input id="welcomeEnabel" type="checkbox">
+                    <% } %>
+                    <span class="slider round"></span>
+                  </label>
+                  <hr>
+                  <label for="exampleFormControlSelect1">Select channel:</label>
+                  <select name="روم الفويس اونلاين" class="form-control" id="selectTextroom">
+                    <%guild.channels.filter(c => c.type == 'text').forEach(c => {%>
+                    <% if (c.id == data.welcomeSittings.roomID) { %>
+                    <option value="<%= c.id %>" selected> # <%= c.name %></option>
+                    <% } else { %>
+                    <option value="<%= c.id %>"> # <%= c.name %></option>
+                    <% } %>
+                    <%})%>
+                  </select>
+                  <br>
+                  <label for="exampleFormControlSelect1">Welcome message:</label>
+                  <textarea id="welcomeMSG" class="form-control" style="resize: none;"
+                    rows="3"><%= data.welcomeSittings.welcomeMsg %></textarea>
+                  <br>
+                  <label style="color: red;">
+                    [user] = Username or mention.
+                    <br>
+                    [server] = Server name.
+                    <br>
+                  </label>
+                  <br>
+                  <label for="exampleFormControlSelect1">Member ID</label>
+                  <label class="switch">
+                    <%if (data.welcomeSittings.withEmbed == 'true') {%>
+                    <input id="withEmbed" type="checkbox" checked>
+                    <%} else {%>
+                    <input id="withEmbed" type="checkbox">
+                    <% } %>
+                    <span class="slider round"></span>
+                  </label>
+                  <br>
+                  <br>
+                  <label for="exampleFormControlSelect1">Select AutoRole:</label>
+                  <select class="form-control" id="selectRoleID">
+                    <%guild.roles.filter(c => c.name != '@everyone').forEach((c, i)=> {%>
+                    <% if (c.id == data.welcomeSittings.roleID) { %>
+                    <option value="<%= c.id %>" selected><%= c.name %></option>
+                    <% } else { %>
+                    <option value="<%= c.id %>"><%= c.name %></option>
+                    <% } %>
+                    <%})%>
+                    <option value="None" disabled selected>Nothing</option>
+                    <option value="None">Nothing</option>
+                  </select>
+                  <hr>
+                  <button onclick="saveChangesWelcome()" class="btn btn-success"><span class="	fa fa-check"></span> Save
+                    changes</button>
+                  <% } else { %>
+                    <label for="exampleFormControlSelect1"><br><strong class="marginright">Active Welcomer</strong></label>
+                  <label class="switch">
+                    <input id="welcomeEnabel" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <hr>
+                  <label for="exampleFormControlSelect1">Select channel:</label>
+                  <select name="روم الفويس اونلاين" class="form-control" id="selectTextroom">
+                    <option value="None" disabled selected>Select channel:</option>
+                    <%guild.channels.filter(c => c.type == 'text').forEach(c => {%>
+                    <option value="<%= c.id %>"> # <%= c.name %></option>
+                    <%})%>
+                  </select>
+                  <br>
+                  <label for="exampleFormControlSelect1">Welcome message:</label>
+                  <textarea id="welcomeMSG" class="form-control" style="resize: none;" rows="3"></textarea>
+                  <br>
+                  <label style="color: red;">
+                    [user] = Username or mention.
+                    <br>
+                    [server] = Server name.
+                    <br>
+                  <br>
+                  <label for="exampleFormControlSelect1">Member ID</label>
+                  <label class="switch">
+                    <input id="withEmbed" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <br>
+                  <br>
+                  <label for="exampleFormControlSelect1">Select AutoRole</label>
+                  <select class="form-control" id="selectRoleID">
+                    <option value="None" disabled selected>Nothing</option>
+                    <option value="None" selected>Nothing</option>
+                    <%guild.roles.filter(c => c.name != '@everyone').forEach(c => {%>
+                    <option value="<%= c.id %>"><%= c.name %></option>
+                    <%})%>
+                  </select>
+                  <hr>
+                  <button onclick="saveChangesWelcome()" class="btn btn-success"><span class="	fa fa-check"></span> Save
+                    changes</button>
+                  <% } %>
+                </div>
+                <div class="tab-pane fade" id="protection" role="tabpanel" aria-labelledby="protection-tab">
+                  <% if (data.protectionSittings && data.protectionSittings.length != 0) { %>
+                    <label for="exampleFormControlSelect1">Active Protector</label>
+                  <label class="switch">
+                    <% if (data.protectionSittings.isEnabled == "true") { %>
+                      <input id="protectionEnabel" type="checkbox" checked>
+                    <% } else { %>
+                      <input id="protectionEnabel" type="checkbox">
+                    <% } %>
+                    <span class="slider round"></span>
+                  </label>
+                  </label>
+                  <hr>
+                  <label for="exampleFormControlSelect1">🚫 Ban limit:</label>
+                  <br>
+                  <input id="banL" class="form-control" type="number" min="1" value="<%= data.protectionSittings.banLimit %>">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">🔧 Kick limit:</label>
+
+                  <br>
+                  <input id="kickL" class="form-control" type="number" min="1" value="<%= data.protectionSittings.kickLimits %>">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">🗑️ DeleteRoles limit:</label>
+
+                  <br>
+                  <input id="roledeleteL" class="form-control" type="number" min="1" value="<%= data.protectionSittings.roleDelLimit %>">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">❕ CreateRoles limit:</label>
+
+                  <br />
+                  <input id="rolecreateL" class="form-control" type="number" min="1" value="<%= data.protectionSittings.roleCrLimits %>">
+                  <br />
+                  <br />
+                  <label for="exampleFormControlSelect1">🗑️ DeleteChannels limit:</label>
+
+                  <br />
+                  <input id="channelsdeleteL"class="form-control" type="number" min="1" value="<%= data.protectionSittings.chaDelLimit %>">
+                  <br>
+                  <label for="exampleFormControlSelect1">⏰ Time limit:</label>
+                  <br />
+                  <input id="Ltime" class="form-control" type="number" min="1" value="<%= data.protectionSittings.coolTime %>">
+                  <br>
+
+                  <button onclick="saveprotectionChanges()" class="btn btn-success"><span class="	fa fa-check"></span> Save
+                    changes</button>
+                  <hr>
+                  <% } else { %>
+                    <label for="exampleFormControlSelect1"><br><strong class="marginright">Active Protector</strong></label>
+                  <label class="switch">
+                    <input id="protectionEnabel" type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  </label>
+                  <hr>
+                  <label for="exampleFormControlSelect1">🚫 Ban limit:</label>
+                  <br>
+                  <input id="banL" class="form-control" type="number" min="1" value="0">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">🔧 Kick limit:</label>
+
+                  <br>
+                  <input id="kickL" class="form-control" type="number" min="1" value="0">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">🗑️ DeleteRoles limit:</label>
+
+                  <br>
+                  <input id="roledeleteL" class="form-control" type="number" min="1" value="0">
+                  <br>
+                  <br />
+                  <label for="exampleFormControlSelect1">❕ CreateRoles limit:</label>
+
+                  <br />
+                  <input id="rolecreateL" class="form-control" type="number" min="1" value="0">
+                  <br />
+                  <br />
+                  <label for="exampleFormControlSelect1">🗑️ DeleteChannels limit:</label>
+
+                  <br />
+                  <input id="channelsdeleteL"class="form-control" type="number" min="1" value="0">
+                  <br>
+                  <label for="exampleFormControlSelect1">⏰ Time limit:</label>
+
+                  <br />
+                  <input id="Ltime" class="form-control" type="number" min="1" value="0">
+                  <br>
+
+                  <button onclick="saveprotectionChanges()" class="btn btn-success"><span class="	fa fa-check"></span> Save
+                    changes</button>
+                  <hr>
+                  <% } %>
+                </div>
+                <div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+
+                    <label for="exampleFormControlSelect1">Active Protector</label>
+                  <label class="switch">
+                    <% if (logdb.get(guild.id, "status") == true) { %>
+                      <input id="logsEnable" type="checkbox" checked>
+                    <% } else { %>
+                      <input id="logsEnable" type="checkbox">
+                    <% } %>
+                    <span class="slider round"></span>
+                  </label>
+                  <label for="exampleFormControlSelect1">Select channel:</label>
+                  <select name="Logs channel" class="form-control" id="logch">
+                    <%guild.channels.filter(c => c.type === "text").forEach(c => {%>
+                    <% if (c.id == logdb.get(guild.id, "ch")) { %>
+                    <option value="<%= c.id %>" selected> # <%= c.name %></option>
+                    <% } else { %>
+                    <option value="<%= c.id %>"> # <%= c.name %></option>
+                    <% } %>
+                    <%})%>
+                  </select>
+                  <button onclick="savelogs()" class="btn btn-success"><span class="	fa fa-check"></span> Save
+                    changes</button>
+                </div>
+              </div>
+            </div>
+			</div>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <div class="footer">
+    <div class="copyright text-center text-dark">
+      © Copyright
+      <strong>SBot</strong>
+      . All Rights Reserved.
+    </div>
+  </div>
+  <div class="bg-modal">
+    <div class="modal-contents">
+
+      <div class="close" id="close">+</div>
+      <br>
+      الرسالة
+      <input id="msgINPUT" class="form-control" type="text" placeholder="">
+      <br>
+      <br>
+      الرد
+      <textarea id="replyINPUT" class="form-control" type="text" style="height: 250px;resize: none;"
+        placeholder=""></textarea>
+      <br>
+      الإستجابة للبوتات
+      <label class="switch">
+        <input id="botsabelINPUT" type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <br>
+      <hr>
+      [user] لمنشن الشخص المرسل
+      <br>
+      <button id="endEDITANDADDBTN" style="margin-bottom: -20%;" class="btn btn-danger"><span
+          class="fa fa-pencil"></span> تعديل الرد</button>
+    </div>
+  </div>
+  <script>
+    $("#SaveVoiceSettings").on("click", () => {
+      let picID = $("#pic").children("option:selected").val();
+      if (picID != "None" && $("#textToChannelName").val() != "") {
+        $.ajax({
+          url: `/manage/<%= guild.id %>/saveVoiceSettings?picID=${picID}&channelTEXT=${$("#textToChannelName").val()}`,
+          type: "post",
+          success: function (results) {
+            $('#TOASTsuccess').toast('show');
+            setTimeout(() => {
+              location.reload();
+            }, 1500)
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        });
+      } else {
+        $("#TOASTerror").toast('show');
+      };
+    });
+    function sEditReplyAlertBox(d) {
+      let dd = d.split(",");
+      if (dd[3] == 'edit') {
+        $("#msgINPUT").val(dd[0]);
+        $("#replyINPUT").val(dd[1]);
+        $("#msgINPUT").attr({ "disabled": "disabled" });
+        if (dd[2].toLowerCase() == "true") {
+          $("#botsabelINPUT").attr("checked");
+        };
+        $("#endEDITANDADDBTN").attr({ "onclick": "editReply();" });
+        $("#endEDITANDADDBTN").html('<span class="fa fa-pencil"></span> Edit')
+      } else if (dd[3] == 'add') {
+        $("#msgINPUT").val('');
+        $("#replyINPUT").val('');
+        if (dd[2].toLowerCase() == "true") {
+          $("#botsabelINPUT").attr("checked")
+        };
+        $("#endEDITANDADDBTN").html('&plus; إضافة الرد');
+        $("#endEDITANDADDBTN").attr({ "onclick": "addReply();" });
+      };
+      document.querySelector('.bg-modal').style.display = "flex";
+
+    }
+    function addReply() {
+      let msg = $("#msgINPUT").val(),
+        reply = $("#replyINPUT").val(),
+        botsabel = $("#botsabelINPUT").prop('checked');
+      $.ajax({
+        url: `/manage/<%= guild.id %>/addReply?msg=${msg}&reply=${reply}&botsabel=${botsabel}`,
+        type: "post",
+        success: function (results) {
+          $("#arstb").prepend(`
+            <tr>
+                <th scope="row">new</th>
+                        <td>${msg}</td>
+                        <td>${reply}</td>
+                        <td>
+                          <button class="btn btn-success"
+                            value="${msg + ',' + reply + ',' + botsabel + ',' + 'edit'}"
+                            onclick="sEditReplyAlertBox(this.value)"><span class="fa fa-pencil"></span></button>
+                          <button class="btn btn-danger"><span class="fa fa-trash-o"></span></button>
+                        </td>
+            </tr>
+            `)
+          document.querySelector('.bg-modal').style.display = "none";
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+    function editReply() {
+      let msg = $("#msgINPUT").val(),
+        reply = $("#replyINPUT").val(),
+        botsabel = $("#botsabelINPUT").prop('checked');
+      $.ajax({
+        url: `/manage/<%= guild.id %>/editReply?msg=${msg}&reply=${reply}&botsabel=${botsabel}`,
+        type: "post",
+        success: function (results) {
+          document.querySelector('.bg-modal').style.display = "none";
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+    function delReply(d) {
+      let dd = d.split(',');
+      $.ajax({
+        url: `/manage/<%= guild.id %>/delReply?msg=${dd[0]}&reply=${dd[1]}&botsabel=${dd[2]}`,
+        type: "post",
+        success: function (results) {
+          location.reload();
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+    function delAllReply() {
+      $.ajax({
+        url: `/manage/<%= guild.id %>/delAllReply`,
+        type: "post",
+        success: function (results) {
+          location.reload();
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+    function saveChangesWelcome() {
+      let welcomeEnabel = $("#welcomeEnabel").prop("checked");
+      let selectTextroom = $("#selectTextroom").children("option:selected").val();
+      let welcomeMSG = $("#welcomeMSG").val().replace(/\r?\n/g, "\\n");
+      let withEmbed = $("#withEmbed").prop("checked");
+      let roleID = $("#selectRoleID").children("option:selected").val();
+      $.ajax({
+        url: `/manage/<%= guild.id %>/savewelcomesittings?welcomeEnabel=${welcomeEnabel}&selectTextroom=${selectTextroom}&welcomeMSG=${welcomeMSG}&withEmbed=${withEmbed}&roleID=${roleID}`,
+        type: "post",
+        success: function (results) {
+          location.reload();
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+    function saveprotectionChanges() {
+      let protectionEnabel = $("#protectionEnabel").prop("checked") || false;
+      let banL = $("#banL").val() || 3;
+      let kickL = $("#kickL").val() || 3;
+      let roledeleteL = $("#roledeleteL").val() || 3;
+      let rolecreateL = $("#rolecreateL").val() || 3;
+      let channelsdeleteL = $("#channelsdeleteL").val() || 3;
+      let Ltime = $("#Ltime").val() || 1;
+      $.ajax({
+        url: `/manage/<%= guild.id %>/saveprotectionchanges?protectionEnabel=${protectionEnabel}&banL=${banL}&kickL=${kickL}&roledeleteL=${roledeleteL}&rolecreateL=${rolecreateL}&channelsdeleteL=${channelsdeleteL}&Ltime=${Ltime}`,
+        type: "post",
+        success: (result) => {
+          location.reload();
+        },
+        error: console.log
+      })
+
+    }
+    function savelogs() {
+      let status = $("#logsEnable").prop("checked") || false;
+      let selectTextroom = $("#logch").children("option:selected").val();
+      $.ajax({
+        url: `/manage/<%= guild.id %>/savelogs?st=${status}&ch=${selectTextroom}`,
+        type: "post",
+        success: (result) => {
+          location.reload();
+        },
+        error: console.log
+      })
+    }
+
+    document.getElementById('close').addEventListener("click", function () {
+      document.querySelector('.bg-modal').style.display = "none";
+    });
+
+
+
+    window.oncontextmenu = function () {
+    return false;
+  }
+  $(document).keydown(function (event) {
+    if (event.keyCode == 123) {
+      return false;
+    }
+    else if ((event.ctrlKey && event.shiftKey && event.keyCode == 73) || (event.ctrlKey && event.shiftKey && event.keyCode == 74)) {
+      return false;
+    }
+  });
+  </script>
+</body>
+
+</html>
